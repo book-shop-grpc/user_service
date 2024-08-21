@@ -282,8 +282,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BasketServiceClient interface {
-	AddToBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*BasketResponse, error)
-	GetBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*BasketResponse, error)
+	AddToBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*Basket, error)
+	GetBasket(ctx context.Context, in *GetBasketReq, opts ...grpc.CallOption) (*Basket, error)
 	RemoveFromBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*Empty, error)
 }
 
@@ -295,9 +295,9 @@ func NewBasketServiceClient(cc grpc.ClientConnInterface) BasketServiceClient {
 	return &basketServiceClient{cc}
 }
 
-func (c *basketServiceClient) AddToBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*BasketResponse, error) {
+func (c *basketServiceClient) AddToBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*Basket, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(BasketResponse)
+	out := new(Basket)
 	err := c.cc.Invoke(ctx, BasketService_AddToBasket_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -305,9 +305,9 @@ func (c *basketServiceClient) AddToBasket(ctx context.Context, in *Basket, opts 
 	return out, nil
 }
 
-func (c *basketServiceClient) GetBasket(ctx context.Context, in *Basket, opts ...grpc.CallOption) (*BasketResponse, error) {
+func (c *basketServiceClient) GetBasket(ctx context.Context, in *GetBasketReq, opts ...grpc.CallOption) (*Basket, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(BasketResponse)
+	out := new(Basket)
 	err := c.cc.Invoke(ctx, BasketService_GetBasket_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -329,8 +329,8 @@ func (c *basketServiceClient) RemoveFromBasket(ctx context.Context, in *Basket, 
 // All implementations must embed UnimplementedBasketServiceServer
 // for forward compatibility.
 type BasketServiceServer interface {
-	AddToBasket(context.Context, *Basket) (*BasketResponse, error)
-	GetBasket(context.Context, *Basket) (*BasketResponse, error)
+	AddToBasket(context.Context, *Basket) (*Basket, error)
+	GetBasket(context.Context, *GetBasketReq) (*Basket, error)
 	RemoveFromBasket(context.Context, *Basket) (*Empty, error)
 	mustEmbedUnimplementedBasketServiceServer()
 }
@@ -342,10 +342,10 @@ type BasketServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedBasketServiceServer struct{}
 
-func (UnimplementedBasketServiceServer) AddToBasket(context.Context, *Basket) (*BasketResponse, error) {
+func (UnimplementedBasketServiceServer) AddToBasket(context.Context, *Basket) (*Basket, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddToBasket not implemented")
 }
-func (UnimplementedBasketServiceServer) GetBasket(context.Context, *Basket) (*BasketResponse, error) {
+func (UnimplementedBasketServiceServer) GetBasket(context.Context, *GetBasketReq) (*Basket, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBasket not implemented")
 }
 func (UnimplementedBasketServiceServer) RemoveFromBasket(context.Context, *Basket) (*Empty, error) {
@@ -391,7 +391,7 @@ func _BasketService_AddToBasket_Handler(srv interface{}, ctx context.Context, de
 }
 
 func _BasketService_GetBasket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Basket)
+	in := new(GetBasketReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -403,7 +403,7 @@ func _BasketService_GetBasket_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: BasketService_GetBasket_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BasketServiceServer).GetBasket(ctx, req.(*Basket))
+		return srv.(BasketServiceServer).GetBasket(ctx, req.(*GetBasketReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

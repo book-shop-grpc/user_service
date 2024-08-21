@@ -688,6 +688,53 @@ func (x *Basket) GetSelectedBooks() []*SelectedBook {
 	return nil
 }
 
+type GetBasketReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BasketId string `protobuf:"bytes,1,opt,name=basket_id,json=basketId,proto3" json:"basket_id,omitempty"`
+}
+
+func (x *GetBasketReq) Reset() {
+	*x = GetBasketReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetBasketReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetBasketReq) ProtoMessage() {}
+
+func (x *GetBasketReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetBasketReq.ProtoReflect.Descriptor instead.
+func (*GetBasketReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetBasketReq) GetBasketId() string {
+	if x != nil {
+		return x.BasketId
+	}
+	return ""
+}
+
 type SelectedBook struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -703,7 +750,7 @@ type SelectedBook struct {
 func (x *SelectedBook) Reset() {
 	*x = SelectedBook{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[12]
+		mi := &file_message_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -716,7 +763,7 @@ func (x *SelectedBook) String() string {
 func (*SelectedBook) ProtoMessage() {}
 
 func (x *SelectedBook) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[12]
+	mi := &file_message_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -729,7 +776,7 @@ func (x *SelectedBook) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SelectedBook.ProtoReflect.Descriptor instead.
 func (*SelectedBook) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{12}
+	return file_message_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *SelectedBook) GetSelectionId() string {
@@ -767,31 +814,32 @@ func (x *SelectedBook) GetUserId() string {
 	return ""
 }
 
-type BasketResponse struct {
+type GetListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Limit  int32 `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset int32 `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
 }
 
-func (x *BasketResponse) Reset() {
-	*x = BasketResponse{}
+func (x *GetListReq) Reset() {
+	*x = GetListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[13]
+		mi := &file_message_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
 }
 
-func (x *BasketResponse) String() string {
+func (x *GetListReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*BasketResponse) ProtoMessage() {}
+func (*GetListReq) ProtoMessage() {}
 
-func (x *BasketResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[13]
+func (x *GetListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -802,16 +850,78 @@ func (x *BasketResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use BasketResponse.ProtoReflect.Descriptor instead.
-func (*BasketResponse) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{13}
+// Deprecated: Use GetListReq.ProtoReflect.Descriptor instead.
+func (*GetListReq) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *BasketResponse) GetMessage() string {
+func (x *GetListReq) GetLimit() int32 {
 	if x != nil {
-		return x.Message
+		return x.Limit
 	}
-	return ""
+	return 0
+}
+
+func (x *GetListReq) GetOffset() int32 {
+	if x != nil {
+		return x.Offset
+	}
+	return 0
+}
+
+type GetListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Users []*User `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Count int32   `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+}
+
+func (x *GetListResp) Reset() {
+	*x = GetListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_message_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetListResp) ProtoMessage() {}
+
+func (x *GetListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_message_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetListResp.ProtoReflect.Descriptor instead.
+func (*GetListResp) Descriptor() ([]byte, []int) {
+	return file_message_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetListResp) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+func (x *GetListResp) GetCount() int32 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
 }
 
 type Empty struct {
@@ -823,7 +933,7 @@ type Empty struct {
 func (x *Empty) Reset() {
 	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_message_proto_msgTypes[14]
+		mi := &file_message_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -836,7 +946,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_message_proto_msgTypes[14]
+	mi := &file_message_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -849,7 +959,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_message_proto_rawDescGZIP(), []int{14}
+	return file_message_proto_rawDescGZIP(), []int{16}
 }
 
 var File_message_proto protoreflect.FileDescriptor
@@ -916,23 +1026,31 @@ var file_message_proto_rawDesc = []byte{
 	0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x5f, 0x62, 0x6f, 0x6f, 0x6b, 0x73, 0x18, 0x04, 0x20,
 	0x03, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x2e, 0x53, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x42, 0x6f, 0x6f, 0x6b, 0x52,
-	0x0d, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x42, 0x6f, 0x6f, 0x6b, 0x73, 0x22, 0x9c,
-	0x01, 0x0a, 0x0c, 0x53, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x42, 0x6f, 0x6f, 0x6b, 0x12,
-	0x21, 0x0a, 0x0c, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x17,
-	0x0a, 0x07, 0x62, 0x6f, 0x6f, 0x6b, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x06, 0x62, 0x6f, 0x6f, 0x6b, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x62, 0x61, 0x73, 0x6b, 0x65,
-	0x74, 0x5f, 0x69, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x62, 0x61, 0x73, 0x6b,
-	0x65, 0x74, 0x49, 0x64, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18,
-	0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x2a, 0x0a,
-	0x0e, 0x42, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x42, 0x17, 0x5a, 0x15, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75,
-	0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x0d, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x42, 0x6f, 0x6f, 0x6b, 0x73, 0x22, 0x2b,
+	0x0a, 0x0c, 0x47, 0x65, 0x74, 0x42, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x12, 0x1b,
+	0x0a, 0x09, 0x62, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x62, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x49, 0x64, 0x22, 0x9c, 0x01, 0x0a, 0x0c,
+	0x53, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x65, 0x64, 0x42, 0x6f, 0x6f, 0x6b, 0x12, 0x21, 0x0a, 0x0c,
+	0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0b, 0x73, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x12,
+	0x1a, 0x0a, 0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x08, 0x71, 0x75, 0x61, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x12, 0x17, 0x0a, 0x07, 0x62,
+	0x6f, 0x6f, 0x6b, 0x5f, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x62, 0x6f,
+	0x6f, 0x6b, 0x49, 0x64, 0x12, 0x1b, 0x0a, 0x09, 0x62, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x5f, 0x69,
+	0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x62, 0x61, 0x73, 0x6b, 0x65, 0x74, 0x49,
+	0x64, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x3a, 0x0a, 0x0a, 0x47, 0x65,
+	0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x69, 0x6d, 0x69,
+	0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x6c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x16,
+	0x0a, 0x06, 0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06,
+	0x6f, 0x66, 0x66, 0x73, 0x65, 0x74, 0x22, 0x4d, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x28, 0x0a, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x73, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x12,
+	0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x42, 0x17,
+	0x5a, 0x15, 0x67, 0x65, 0x6e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x5f,
+	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -947,7 +1065,7 @@ func file_message_proto_rawDescGZIP() []byte {
 	return file_message_proto_rawDescData
 }
 
-var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_message_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_message_proto_goTypes = []any{
 	(*User)(nil),               // 0: user_service.User
 	(*CreateUserRequest)(nil),  // 1: user_service.CreateUserRequest
@@ -961,18 +1079,21 @@ var file_message_proto_goTypes = []any{
 	(*LogInRequest)(nil),       // 9: user_service.LogInRequest
 	(*LogInResponse)(nil),      // 10: user_service.LogInResponse
 	(*Basket)(nil),             // 11: user_service.Basket
-	(*SelectedBook)(nil),       // 12: user_service.SelectedBook
-	(*BasketResponse)(nil),     // 13: user_service.BasketResponse
-	(*Empty)(nil),              // 14: user_service.Empty
+	(*GetBasketReq)(nil),       // 12: user_service.GetBasketReq
+	(*SelectedBook)(nil),       // 13: user_service.SelectedBook
+	(*GetListReq)(nil),         // 14: user_service.GetListReq
+	(*GetListResp)(nil),        // 15: user_service.GetListResp
+	(*Empty)(nil),              // 16: user_service.Empty
 }
 var file_message_proto_depIdxs = []int32{
 	0,  // 0: user_service.GetUserResponse.user:type_name -> user_service.User
-	12, // 1: user_service.Basket.selected_books:type_name -> user_service.SelectedBook
-	2,  // [2:2] is the sub-list for method output_type
-	2,  // [2:2] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	13, // 1: user_service.Basket.selected_books:type_name -> user_service.SelectedBook
+	0,  // 2: user_service.GetListResp.users:type_name -> user_service.User
+	3,  // [3:3] is the sub-list for method output_type
+	3,  // [3:3] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_message_proto_init() }
@@ -1126,7 +1247,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[12].Exporter = func(v any, i int) any {
-			switch v := v.(*SelectedBook); i {
+			switch v := v.(*GetBasketReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1138,7 +1259,7 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[13].Exporter = func(v any, i int) any {
-			switch v := v.(*BasketResponse); i {
+			switch v := v.(*SelectedBook); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1150,6 +1271,30 @@ func file_message_proto_init() {
 			}
 		}
 		file_message_proto_msgTypes[14].Exporter = func(v any, i int) any {
+			switch v := v.(*GetListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[15].Exporter = func(v any, i int) any {
+			switch v := v.(*GetListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_message_proto_msgTypes[16].Exporter = func(v any, i int) any {
 			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
@@ -1168,7 +1313,7 @@ func file_message_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_message_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   15,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

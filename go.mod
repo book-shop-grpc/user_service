@@ -4,7 +4,6 @@ go 1.22.5
 
 require (
 	github.com/book-shop-grpc/product_service v0.0.0-20240814173044-4c6ff625a1e0
-	github.com/golang/protobuf v1.5.4
 	github.com/jackc/pgx/v5 v5.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/spf13/cast v1.7.0
